@@ -6,7 +6,7 @@
   <adapter 
       for="* *"
       name="plone.contentmenu.workflow"
-      factory="sixfeetup.workflow.featured.browser.menu.WorkflowSubMenuItem"
+      factory=".browser.menu.WorkflowSubMenuItem"
       provides="plone.app.contentmenu.interfaces.IContentMenuItem"
       />
 
