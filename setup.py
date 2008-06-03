@@ -20,7 +20,7 @@ setup(name='sixfeetup.workflow.chained',
       url='http://www.sixfeetup.com',
       license='GPL',
       packages=find_packages(exclude=['ez_setup']),
-      namespace_packages=['sixfeetup'],
+      namespace_packages=['sixfeetup', 'sixfeetup.workflow'],
       include_package_data=True,
       zip_safe=False,
       install_requires=[
