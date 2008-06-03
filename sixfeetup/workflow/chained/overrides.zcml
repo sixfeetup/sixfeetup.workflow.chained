@@ -9,13 +9,5 @@
       factory="sixfeetup.workflow.featured.browser.menu.WorkflowSubMenuItem"
       provides="plone.app.contentmenu.interfaces.IContentMenuItem"
       />
-      
-  <!-- uncomment if none of the other products in the site do that
-      <adapter
-      factory=".pluginindexes.PluggableIndexNodeAdapter"
-      provides="Products.GenericSetup.interfaces.INode"
-      for="Products.PluginIndexes.interfaces.IPluggableIndex
-           Products.GenericSetup.interfaces.ISetupEnviron"
-      />-->
 
 </configure>
