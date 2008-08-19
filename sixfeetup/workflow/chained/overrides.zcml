@@ -1,13 +1,29 @@
-<configure 
+<configure
   xmlns="http://namespaces.zope.org/zope"
   xmlns:browser="http://namespaces.zope.org/browser"
   xmlns:five="http://namespaces.zope.org/five">
-
-  <adapter 
+  
+  <adapter
       for="* *"
       name="plone.contentmenu.workflow"
       factory=".browser.menu.WorkflowSubMenuItem"
       provides="plone.app.contentmenu.interfaces.IContentMenuItem"
       />
 
+  <!--
+  <adapter
+      for="* *"
+      name="folder_contents"
+      factory=".browser.foldercontents.FolderContentsView"
+      provides="plone.app.content.browser.interfaces.IFolderContentsView"
+      />
+
+  <browser:page
+      for="*"
+      class=".browser.foldercontents.FolderContentsView"
+      name="folder_contents"
+      template="browser/foldercontents.pt"
+      permission="cmf.ListFolderContents"
+      />
+  -->
 </configure>

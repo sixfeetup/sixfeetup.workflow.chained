@@ -1,0 +1,11 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="sixfeetup.chained.workflow">
+  
+  <include package="z3c.jbot" file="meta.zcml"/>
+  
+  <browser:templateOverrides directory="template_overrides" />
+  
+</configure>

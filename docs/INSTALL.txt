@@ -1,5 +1,51 @@
-sixfeetup.workflow.chained Installation
-==========================
+sixfeetup.workflow.chained Information
+====================================================
+If you use chained workflows, sixfeetup.workflow.chained allows
+you to view (and style) each of the chained workflow titles in
+the Action Items sub menu. Plone's built-in display only shows
+a single workflow state on a piece of content, even if you have
+chained workflows. sixfeetup.workflow.chained displays all of
+the active workflow states on a piece of content, plus it allows
+you to to use CSS to override the style of each individual state
+in the displayed list.
+
+
+How to set up `sixfeetup.workflow.chained`:
+====================================================
+Add these slugs to your `configure.zcml` under [instance]
+(Six Feet Up: prefix with 'base-eggs' and 'base-zcml'):
+
+  eggs =
+      sixfeetup.workflow.chained
+
+  zcml =
+      sixfeetup.workflow.chained
+      sixfeetup.workflow.chained-overrides
+
+  # Six Feet Up only egg server:
+  find-links =
+      http://${buildout:skillet-login}@skillet.sixfeetup.com/sixfeetup.workflow.chained
+
+
+What `sixfeetup.workflow.chained` is doing:
+====================================================
+Overrides the `WorkflowSubMenuItem` class from plone.app.content.contentmenu
+Specifically, the `_currentStateTitle` and `extra` functions, returning a
+formattted list of items for the workflow content menu.
+
+`contentmenu.pt` is overridden from `plone.app.contentmenu`, allowing
+the menu items to display correctly.
+
+
+
+Dependencies:
+====================================================
+If you are using buildout, sixfeetup.workflow.chained will automagically
+install `z3c.jbot`.
+
+
+sixfeetup.workflow.chained Installation (the default info added by paste/ZopeSkel)
+====================================================
 
 To install sixfeetup.workflow.chained into the global Python environment (or a workingenv),
 using a traditional Zope 2 instance, you can do this:

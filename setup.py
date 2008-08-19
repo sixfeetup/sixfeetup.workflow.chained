@@ -26,6 +26,7 @@ setup(name='sixfeetup.workflow.chained',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
+          'z3c.jbot',
       ],
       entry_points="""
       # -*- Entry points: -*-
