@@ -1,17 +1,25 @@
+import urllib
+import pkg_resources
 from zope.component import getMultiAdapter
-from Products.ATContentTypes.interface import IATTopic
-from Products.CMFCore.utils import getToolByName
-
-#from plone.memoize.instance import memoize
-
+from zope.app.pagetemplate import ViewPageTemplateFile
 from plone.app.content.browser.foldercontents \
     import FolderContentsView as BaseFolderContentsView
 from plone.app.content.browser.foldercontents \
     import FolderContentsTable as BaseFolderContentsTable
-
+from plone.app.content.browser.tableview import Table as BaseTable
 from plone.memoize import instance
+from Products.ATContentTypes.interface import IATTopic
+from Products.CMFCore.utils import getToolByName
 
-import urllib
+
+class Table(BaseTable):
+    """
+    """
+    render = ViewPageTemplateFile("table.pt")
+    batching_template = pkg_resources.resource_filename(
+                            'plone.app.content.browser',
+                            'batching.pt')
+    batching = ViewPageTemplateFile(batching_template)
 
 
 class FolderContentsView(BaseFolderContentsView):
@@ -28,8 +36,15 @@ class FolderContentsTable(BaseFolderContentsTable):
     The foldercontents table renders the table and its actions.
     """
     
-    def __init__(self, context, request):
-        super(FolderContentsTable, self).__init__(context, request)
+    def __init__(self, context, request, contentFilter={}):
+        self.context = context
+        self.request = request
+        self.contentFilter = contentFilter
+        url = self.context.absolute_url()
+        view_url = url + '/@@folder_contents'
+        self.table = Table(request, url, view_url, self.items,
+                           show_sort_column=self.show_sort_column,
+                           buttons=self.buttons)
     
     @property
     @instance.memoize
