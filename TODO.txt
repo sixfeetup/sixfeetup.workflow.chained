@@ -1,0 +1,5 @@
+- Override the workflow history viewlet to show info for all workflows
+  and not just the main workflow
+- Write tests
+- Look back into folder_contents setup to make sure it overrides only
+  the necessary pieces
