@@ -1,5 +1,19 @@
 - Override the workflow history viewlet to show info for all workflows
-  and not just the main workflow
+  and not just the main workflow, something like this should do it:
+
+    workflows = workflow.getWorkflowsFor(self.context)
+    review_history = []
+    for wf in workflows:
+        try:
+            history = workflow.getInfoFor(
+                self.context,
+                'review_history',
+                wf_id=wf.id)
+            review_history.extend(history)
+        except KeyError:
+            # doesn't have the 'review_history' variable
+            pass
+
 - Write tests
 - Look back into folder_contents setup to make sure it overrides only
   the necessary pieces
