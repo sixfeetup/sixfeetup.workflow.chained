@@ -25,7 +25,7 @@ class Table(BaseTable):
 class FolderContentsView(BaseFolderContentsView):
     """
     """
-    
+
     def contents_table(self):
         table = FolderContentsTable(self.context, self.request)
         return table.render()
@@ -35,7 +35,7 @@ class FolderContentsTable(BaseFolderContentsTable):
     """
     The foldercontents table renders the table and its actions.
     """
-    
+
     def __init__(self, context, request, contentFilter={}):
         self.context = context
         self.request = request
@@ -45,7 +45,7 @@ class FolderContentsTable(BaseFolderContentsTable):
         self.table = Table(request, url, view_url, self.items,
                            show_sort_column=self.show_sort_column,
                            buttons=self.buttons)
-    
+
     @property
     @instance.memoize
     def items(self):
@@ -55,7 +55,7 @@ class FolderContentsTable(BaseFolderContentsTable):
         """
         context = self.context
         request = self.request
-        self.context_state = getMultiAdapter((context, request), 
+        self.context_state = getMultiAdapter((context, request),
             name='plone_context_state')
         self.tools = getMultiAdapter((context, request), name='plone_tools')
         self.workflows = self.tools.workflow().getWorkflowsFor(self.context)
@@ -67,45 +67,45 @@ class FolderContentsTable(BaseFolderContentsTable):
         use_view_action = site_properties.getProperty(
             'typesUseViewActionInListings', ())
         browser_default = self.context.browserDefault()
-        
+
         if IATTopic.providedBy(self.context):
             contentsMethod = self.context.queryCatalog
         else:
             contentsMethod = self.context.getFolderContents
-        
+
         results = []
         for i, obj in enumerate(contentsMethod(self.contentFilter)):
             if (i + 1) % 2 == 0:
                 table_row_class = "draggable even"
             else:
                 table_row_class = "draggable odd"
-            
+
             url = obj.getURL()
             path = obj.getPath or "/".join(obj.getPhysicalPath())
             icon = plone_view.getIcon(obj);
-            
+
             type_class = 'contenttype-' + plone_utils.normalizeString(
                 obj.portal_type)
-            
+
             review_state = obj.review_state
             state_class = 'state-' + plone_utils.normalizeString(review_state)
-            
+
             relative_url = obj.getURL(relative=True)
             obj_type = obj.portal_type
-            
+
             modified = plone_view.toLocalizedTime(
                 obj.ModificationDate, long_format=1)
-            
+
             if obj_type in use_view_action:
                 view_url = url + '/view'
             elif obj.is_folderish:
                 view_url = url + "/folder_contents"
             else:
                 view_url = url
-            
+
             is_browser_default = len(browser_default[1]) == 1 and (
                 obj.id == browser_default[1][0])
-            
+
             state_list = []
             wf_chain = self.tools.workflow().getChainForPortalType(obj_type)
             for w in wf_chain:
@@ -117,7 +117,7 @@ class FolderContentsTable(BaseFolderContentsTable):
                     state_list.append('<span class="wf-%s state-%s">%s</span>'
                         % (w, state_id, stitle))
             state_string = ', '.join(state_list)
-            
+
             results.append(dict(
                 url = url,
                 id  = obj.getId,
