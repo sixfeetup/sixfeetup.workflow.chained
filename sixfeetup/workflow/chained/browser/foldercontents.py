@@ -106,16 +106,32 @@ class FolderContentsTable(BaseFolderContentsTable):
             is_browser_default = len(browser_default[1]) == 1 and (
                 obj.id == browser_default[1][0])
 
+            # XXX: This does not get the proper workflow chain when we
+            #      are dealing with an item that is under placeful
+            #      workflow control.
             state_list = []
             wf_chain = self.tools.workflow().getChainForPortalType(obj_type)
             for w in wf_chain:
                 wf_obj = self.tools.workflow()[w]
                 state_var = wf_obj.state_var
                 state_id = getattr(obj, state_var, None)
-                if state_id is not None:
-                    stitle = wf_obj.states[state_id].title
-                    state_list.append('<span class="wf-%s state-%s">%s</span>'
-                        % (w, state_id, stitle))
+                wf_states = wf_obj.states
+                # XXX: This is a bit of a hack, if there is a placeful
+                #      worklflow in use then this might still be wrong.
+                #      Since the state id could be the same in different
+                #      workflows. The title it ends up getting might
+                #      not be the correct one.
+                if state_id is None or state_id not in wf_states.objectIds():
+                    continue
+                stitle = wf_states[state_id].title
+                state_list.append('<span class="wf-%s state-%s">%s</span>'
+                    % (w, state_id, stitle))
+            # XXX: If the state didn't exist in the workflow chain,
+            #      fall back to the `review_state` on the brain. This
+            #      Will happen when a placeful workflow is in place
+            #      and the workflow chain cannot be determined.
+            if not state_list:
+                state_list = [review_state]
             state_string = ', '.join(state_list)
 
             results.append(dict(
