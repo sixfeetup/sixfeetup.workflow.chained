@@ -130,7 +130,7 @@ class FolderContentsTable(BaseFolderContentsTable):
             #      fall back to the `review_state` on the brain. This
             #      Will happen when a placeful workflow is in place
             #      and the workflow chain cannot be determined.
-            if not state_list:
+            if not state_list and isinstance(review_state, basestring):
                 state_list = [review_state]
             state_string = ', '.join(state_list)
 
