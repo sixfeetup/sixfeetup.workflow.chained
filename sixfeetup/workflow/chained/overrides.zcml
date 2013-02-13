@@ -24,5 +24,13 @@
       template="browser/foldercontents.pt"
       permission="cmf.ListFolderContents"
       />
-  
+
+    <!-- Render the workflow history as a view -->
+    <browser:view
+        for="*"
+        name="contenthistory"
+        class=".browser.contenthistory.ContentHistoryView"
+        permission="zope2.View"
+        />
+
 </configure>
