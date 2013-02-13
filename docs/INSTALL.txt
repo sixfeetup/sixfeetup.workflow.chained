@@ -36,7 +36,8 @@ formattted list of items for the workflow content menu.
 `contentmenu.pt` is overridden from `plone.app.contentmenu`, allowing
 the menu items to display correctly.
 
-
+The `contenthistory` view and associated `content_history.pt` template are
+overridden to display transitions for all workflows in an object's chain.
 
 Dependencies:
 ====================================================

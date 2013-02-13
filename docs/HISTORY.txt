@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.7 - 2013-02-13
+----------------
+
+* Added override of contenthistory view and content_history template
+  to display items from all workflows in an object's chain
+
 1.0 - Unreleased
 ----------------
 
