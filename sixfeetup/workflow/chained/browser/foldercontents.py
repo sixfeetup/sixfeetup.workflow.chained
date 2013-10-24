@@ -51,7 +51,7 @@ class FolderContentsTable(BaseFolderContentsTable):
         context = self.context
         request = self.request
         self.context_state = getMultiAdapter((context, request),
-            name='plone_context_state')
+                                             name='plone_context_state')
         self.tools = getMultiAdapter((context, request), name='plone_tools')
         self.workflows = self.tools.workflow().getWorkflowsFor(self.context)
         plone_utils = getToolByName(self.context, 'plone_utils')
@@ -77,7 +77,7 @@ class FolderContentsTable(BaseFolderContentsTable):
 
             url = obj.getURL()
             path = obj.getPath or "/".join(obj.getPhysicalPath())
-            icon = plone_view.getIcon(obj);
+            icon = plone_view.getIcon(obj)
 
             type_class = 'contenttype-' + plone_utils.normalizeString(
                 obj.portal_type)
@@ -120,7 +120,7 @@ class FolderContentsTable(BaseFolderContentsTable):
                     continue
                 stitle = wf_states[state_id].title
                 state_list.append('<span class="wf-%s state-%s">%s</span>'
-                    % (w, state_id, stitle))
+                                  % (w, state_id, stitle))
             # XXX: If the state didn't exist in the workflow chain,
             #      fall back to the `review_state` on the brain. This
             #      Will happen when a placeful workflow is in place
@@ -130,25 +130,25 @@ class FolderContentsTable(BaseFolderContentsTable):
             state_string = ', '.join(state_list)
 
             results.append(dict(
-                url = url,
-                id  = obj.getId,
-                quoted_id = urllib.quote_plus(obj.getId),
-                path = path,
-                title_or_id = obj.pretty_title_or_id(),
-                description = obj.Description,
-                obj_type = obj_type,
-                size = obj.getObjSize,
-                modified = modified,
-                icon = icon.html_tag(),
-                type_class = type_class,
-                wf_state = review_state,
-                state_title = state_string,
-                state_class = state_class,
-                is_browser_default = is_browser_default,
-                folderish = obj.is_folderish,
-                relative_url = relative_url,
-                view_url = view_url,
-                table_row_class = table_row_class,
-                is_expired = self.context.isExpired(obj),
+                url=url,
+                id =obj.getId,
+                quoted_id=urllib.quote_plus(obj.getId),
+                path=path,
+                title_or_id=obj.pretty_title_or_id(),
+                description=obj.Description,
+                obj_type=obj_type,
+                size=obj.getObjSize,
+                modified=modified,
+                icon=icon.html_tag(),
+                type_class=type_class,
+                wf_state=review_state,
+                state_title=state_string,
+                state_class=state_class,
+                is_browser_default=is_browser_default,
+                folderish=obj.is_folderish,
+                relative_url=relative_url,
+                view_url=view_url,
+                table_row_class=table_row_class,
+                is_expired=self.context.isExpired(obj),
             ))
         return results
