@@ -1,7 +1,6 @@
 import urllib
-import pkg_resources
 from zope.component import getMultiAdapter
-from zope.app.pagetemplate import ViewPageTemplateFile
+from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
 from plone.app.content.browser.foldercontents \
     import FolderContentsView as BaseFolderContentsView
 from plone.app.content.browser.foldercontents \
@@ -16,10 +15,6 @@ class Table(BaseTable):
     """
     """
     render = ViewPageTemplateFile("table.pt")
-    batching_template = pkg_resources.resource_filename(
-                            'plone.app.content.browser',
-                            'batching.pt')
-    batching = ViewPageTemplateFile(batching_template)
 
 
 class FolderContentsView(BaseFolderContentsView):
